@@ -27,7 +27,11 @@ hs_err_pid*
 *.iml
 
 # Allure
-allure-report
+.allure
+schema
+build
+/*/allure-results/
+out
 
 .settings/
 .classpath
