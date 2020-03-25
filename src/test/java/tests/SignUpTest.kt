@@ -1,9 +1,9 @@
 package tests
 
 import io.qameta.allure.Description
+import io.qameta.allure.Feature
+import org.assertj.core.api.Assertions
 import org.testng.annotations.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class SignUpTest : BaseTest() {
     var validEmail: String = "sw.karapugina@gmail.com"
@@ -12,30 +12,42 @@ class SignUpTest : BaseTest() {
 
     @Test
     @Description("Test Description: Sing in test - pass")
+    @Feature("SignUpTest")
     fun testSignInPass() {
         pages.mainPage.logOut()
                 .clickOnMoreBtn()
                 .clickOnSignIn()
-        assertTrue(pages.myAccountPage.isMyAccountPageOpen(), "My Account page isn't opened")
-        assertTrue(pages.myAccountPage.setEmailField(validEmail)
+        Assertions.assertThat(pages.myAccountPage.isMyAccountPageOpen())
+                .describedAs("My Account page isn't opened")
+                .isTrue()
+        Assertions.assertThat(pages.myAccountPage.setEmailField(validEmail)
                 .setPasswordField(password)
                 .isSignInButtonEnabled())
-        assertFalse(pages.myAccountPage.clickSignInButton()
-                .isErrorMsgShown())
-        assertTrue(pages.myAccountPage.isGreetingShown())
+                .describedAs("Sig in button isn't present")
+                .isTrue()
+        Assertions.assertThat(pages.myAccountPage.clickSignInButton()
+                .isGreetingPresent())
+                .describedAs("Greeting message isn't present")
+                .isTrue()
     }
 
     @Test
     @Description("Test Description: Sing in test - fail")
+    @Feature("SignUpTest")
     fun testSignInFail() {
         pages.mainPage.logOut()
                 .clickOnMoreBtn()
                 .clickOnSignIn()
-        assertTrue(pages.myAccountPage.isMyAccountPageOpen())
-        assertTrue(pages.myAccountPage.setEmailField(invalidEmail)
+        Assertions.assertThat(pages.myAccountPage.isMyAccountPageOpen())
+                .describedAs("My Account page isn't opened")
+                .isTrue()
+        Assertions.assertThat(pages.myAccountPage.setEmailField(invalidEmail)
                 .setPasswordField(password)
                 .isSignInButtonEnabled())
-        pages.myAccountPage.clickSignInButton()
-        assertTrue(pages.myAccountPage.isErrorMsgShown())
+                .describedAs("Sig in button isn't present")
+                .isTrue()
+        Assertions.assertThat(pages.myAccountPage.clickSignInButton()
+                .isErrorMsgPresent())
+                .isTrue()
     }
 }

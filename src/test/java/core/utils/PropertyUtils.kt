@@ -1,6 +1,5 @@
 package core.utils
 
-import org.junit.Assert
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -22,13 +21,13 @@ class PropertyUtils {
             prop.load(input)
             value = prop.getProperty(propertyName)
         } catch (ex: Exception) {
-            Assert.fail(ex.message)
+            System.out.println(ex.message)
         } finally {
             if (input != null) {
                 try {
-                    input!!.close()
+                    input.close()
                 } catch (e: IOException) {
-                    Assert.fail(e.message)
+                    System.out.println(e.message)
                 }
 
             }

@@ -1,5 +1,7 @@
 package core.driver
 
+import com.codeborne.selenide.Driver
+import com.codeborne.selenide.Selenide.*
 import com.codeborne.selenide.WebDriverProvider
 import core.constants.Constants.Companion.IS_ANDROID
 import core.constants.Constants.Companion.IS_IOS
@@ -17,7 +19,6 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
-import java.util.concurrent.TimeUnit
 
 
 class AppiumDriverController : WebDriverProvider {
@@ -25,7 +26,6 @@ class AppiumDriverController : WebDriverProvider {
 
     companion object {
         var instance = AppiumDriverController()
-        //var driver: AppiumDriver<MobileElement>? = null
     }
 
     override fun createDriver(capabilities: DesiredCapabilities): WebDriver? {
@@ -40,13 +40,13 @@ class AppiumDriverController : WebDriverProvider {
         capabilities.setCapability(NEW_COMMAND_TIMEOUT, PropertyUtils().getCentralData("WaitTimeoutInSeconds"))
 
         if (IS_ANDROID) {
-            capabilities.setCapability(APPLICATION_NAME, app.getAbsolutePath())
+            capabilities.setCapability(APP, app.getAbsolutePath())
             capabilities.setCapability(APP_PACKAGE, PropertyUtils().getCentralData("AppPackage"))
             capabilities.setCapability(APP_ACTIVITY, PropertyUtils().getCentralData("AppActivity"))
         }
         if (IS_IOS) {
             capabilities.setCapability(AUTOMATION_NAME, IOS_XCUI_TEST)
-            capabilities.setCapability("app", app.getAbsolutePath())
+            capabilities.setCapability(APP, app.getAbsolutePath())
         }
 
         try {
@@ -54,15 +54,15 @@ class AppiumDriverController : WebDriverProvider {
         } catch (e: MalformedURLException) {
             e.printStackTrace()
         }
-        driver?.let {
-            it.manage()?.timeouts()?.implicitlyWait(10, TimeUnit.SECONDS)
-        }
         return driver
     }
 
+    fun restartApp() {
+        close()
+        open()
+    }
+
     fun stop() {
-        if (driver != null) {
-            driver!!.quit()
-        }
+        closeWebDriver()
     }
 }

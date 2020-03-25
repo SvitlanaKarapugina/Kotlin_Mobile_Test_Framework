@@ -9,50 +9,43 @@ import core.driver.AppiumDriverController
 import core.pageConfiguration.AndroidInit
 import core.pageConfiguration.Pages
 import core.pageConfiguration.iOSInit
-import org.openqa.selenium.remote.DesiredCapabilities
-import org.testng.annotations.AfterClass
-import org.testng.annotations.AfterMethod
-import org.testng.annotations.BeforeClass
+import core.reports.TestListener
+import org.testng.annotations.AfterSuite
 import org.testng.annotations.BeforeMethod
+import org.testng.annotations.BeforeSuite
+import org.testng.annotations.Listeners
 
 
+@Listeners(TestListener::class)
 open class BaseTest : Pages() {
-
     lateinit var injector: Injector
     lateinit var pages: Pages
 
-    @BeforeClass
+    @BeforeSuite
     fun setup() {
-        injector = if (Constants.IS_IOS) {
-            Guice.createInjector(iOSInit())
-        } else {
-            Guice.createInjector(AndroidInit())
-        }
-        pages = injector.getInstance(Pages::class.java)
-
-
-    }
-
-    @BeforeMethod
-    fun configureEnvironment() {
-        val capabilities = DesiredCapabilities()
-
-        AppiumDriverController.instance.createDriver(capabilities)
-        configureDriver()
-        //ElementHelpers().chooseCountry()
-        // ElementHelpers().tapOnContinue()
-    }
-
-    private fun configureDriver() {
         Configuration.startMaximized = false
         Configuration.browserSize = null
         Configuration.browser = AppiumDriverController::class.java.name
         open()
     }
 
+    @BeforeMethod
+    fun configureEnvironment() {
+        injectPages()
+        AppiumDriverController.instance.restartApp()
+    }
 
-    @AfterMethod
+    @AfterSuite
     fun stopAll() {
         AppiumDriverController.instance.stop()
+    }
+
+    private fun injectPages() {
+        injector = if (Constants.IS_IOS) {
+            Guice.createInjector(iOSInit())
+        } else {
+            Guice.createInjector(AndroidInit())
+        }
+        pages = injector.getInstance(Pages::class.java)
     }
 }

@@ -15,9 +15,9 @@ interface MyAccountPage {
 
     fun clickYesButton(): MyAccountPage
 
-    fun isGreetingShown(): Boolean
+    fun isGreetingPresent(): Boolean
 
-    fun isErrorMsgShown(): Boolean
+    fun isErrorMsgPresent(): Boolean
 
     fun isSignInButtonEnabled(): Boolean
 

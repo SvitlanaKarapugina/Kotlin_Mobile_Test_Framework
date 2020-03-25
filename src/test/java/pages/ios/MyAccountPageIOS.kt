@@ -1,8 +1,10 @@
 package pages.ios
 
 import com.codeborne.selenide.Condition
+import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Selenide.`$`
 import com.codeborne.selenide.SelenideElement
+import core.constants.Constants.Companion.WAIT_TWENTY_SECOND
 import core.utils.ElementHelpers
 import io.qameta.allure.Step
 import org.openqa.selenium.By
@@ -67,34 +69,34 @@ class MyAccountPageIOS : BasePage(), MyAccountPage {
     @Step("Click on the 'Log Out' Button")
     override fun clickLogOutButton(): MyAccountPageIOS {
         log.info("Click on the 'Log Out' Button")
-        logOutButton!!.shouldBe(Condition.visible).click()
+        logOutButton!!.shouldBe(visible).click()
         return this
     }
 
     @Step("Accept log out")
     override fun clickYesButton(): MyAccountPageIOS {
         log.info("Accept log out")
-        if (yesButton!!.`is`(Condition.visible))
+        if (yesButton!!.`is`(visible))
             yesButton!!.click()
         return this
     }
 
     @Step("Verify if Greeting message is present")
-    override fun isGreetingShown(): Boolean {
+    override fun isGreetingPresent(): Boolean {
         log.info("Verify if Greeting message is present")
-        return greetingText!!.`is`(Condition.visible)
+        return greetingText!!.waitUntil(visible, WAIT_TWENTY_SECOND.toLong()).isDisplayed
     }
 
     @Step("Verify if Error message is present")
-    override fun isErrorMsgShown(): Boolean {
+    override fun isErrorMsgPresent(): Boolean {
         log.info("Verify if Error message is present")
-        return txtErrorMsg!!.`is`(Condition.visible)
+        return txtErrorMsg!!.waitUntil(visible, WAIT_TWENTY_SECOND.toLong()).isDisplayed
     }
 
     @Step("Verify if 'Sign in' button enabled")
     override fun isSignInButtonEnabled(): Boolean {
         log.info("Verify if 'Sign in' button enabled")
-        return signInButton!!.`is`(Condition.visible)
+        return signInButton!!.isEnabled
     }
 
     @Step("Getting greeting text")
