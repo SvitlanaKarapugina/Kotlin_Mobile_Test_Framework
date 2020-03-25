@@ -1,4 +1,3 @@
 package pages
 
-open class BasePage {
-}
+open class BasePage
