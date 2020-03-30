@@ -9,7 +9,13 @@ I used:
 6. TestNG - because Junit needs static methods for BeforeClass/AfterClass annotations and TestNG not (Kotlin doesn't have static)
 7. Appium - driver for mobile testing
 
-Useful links:
+# How to execute tests:
+appium start: appium --allow-insecure=get_server_logs - we need it for log generation
+execute all tests: mvn clean test  
+generate allure report: mvn allure:serve
+execute 1 test - just to press the debug button near some test 
+
+# Useful links:
 1. About Kotlin: https://kotlinlang.org/
 2. How to set up Allure: https://habr.com/ru/company/sberbank/blog/358836/
 3. Guice: https://github.com/google/guice/wiki/GettingStarted
