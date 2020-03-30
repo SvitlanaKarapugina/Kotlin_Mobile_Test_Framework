@@ -10,10 +10,10 @@ I used:
 7. Appium - driver for mobile testing
 
 # How to execute tests:
-appium start: appium --allow-insecure=get_server_logs - we need it for log generation
-execute all tests: mvn clean test  
-generate allure report: mvn allure:serve
-execute 1 test - just to press the debug button near some test 
+1. appium start: appium --allow-insecure=get_server_logs - we need it for log generation
+2. execute all tests: mvn clean test  
+3. generate allure report: mvn allure:serve
+4. execute 1 test - just to press the debug button near some test 
 
 # Useful links:
 1. About Kotlin: https://kotlinlang.org/
