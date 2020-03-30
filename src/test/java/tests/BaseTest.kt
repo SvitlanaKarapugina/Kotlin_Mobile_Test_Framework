@@ -20,7 +20,7 @@ import org.testng.annotations.Listeners
 
 @Listeners(TestListener::class)
 open class BaseTest : Pages() {
-    lateinit var injector: Injector
+    private lateinit var injector: Injector
     lateinit var pages: Pages
 
     @BeforeSuite
@@ -41,7 +41,8 @@ open class BaseTest : Pages() {
 
     @AfterSuite
     fun stopAll() {
-        AppiumDriverController.instance.stop()
+        AppiumDriverController.instance.writeLog()
+        AppiumDriverController.instance.quit()
     }
 
     private fun injectPages() {

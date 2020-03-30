@@ -1,7 +1,6 @@
 package core.constants
 
 import core.utils.PropertyUtils
-import java.time.Duration
 
 
 class Constants {

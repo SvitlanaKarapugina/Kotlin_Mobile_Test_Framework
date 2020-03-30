@@ -25,6 +25,7 @@ class PlpPageAndroid : PlpPage {
     @Step("Verify if PLP page opened correctly for {0}")
     override fun isPLPPageOpenedCorrect(plpSearch: String): Boolean {
         log.info("Verify if PLP page opened correctly")
+        WaitingUtils().waitingUntilLoadingIsGone()
         return StringUtils.containsIgnoreCase(getProductsName(), plpSearch)
     }
 }

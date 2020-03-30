@@ -84,15 +84,13 @@ class MyAccountPageAndroid : BasePage(), MyAccountPage {
     @Step("Verify if Greeting message is present")
     override fun isGreetingPresent(): Boolean {
         log.info("Verify if Greeting message is present")
-        WaitingUtils().waitingUntilLoadingIsGone()
-        return greetingText.shouldBe(visible).exists()
+        return greetingText.waitUntil(visible, 60000).exists()
     }
 
     @Step("Verify if Error message is present")
     override fun isErrorMsgPresent(): Boolean {
         log.info("Verify if Error message is present")
-        WaitingUtils().waitingUntilLoadingIsGone()
-        return txtErrorMsg.shouldBe(visible).exists()
+        return txtErrorMsg.waitUntil(visible, 30000).exists()
     }
 
     @Step("Verify if 'Sign in' button enabled")

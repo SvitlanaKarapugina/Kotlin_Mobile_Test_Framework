@@ -167,7 +167,6 @@
             <version>${allure.selenide}</version>
         </dependency>
 
-
     </dependencies>
 
 </project>
