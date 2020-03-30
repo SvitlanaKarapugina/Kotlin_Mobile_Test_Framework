@@ -8,24 +8,51 @@ import io.qameta.allure.Step
 import org.openqa.selenium.By
 import pages.BasePage
 import pages.MainPage
+import java.lang.String.format
 import java.util.logging.Logger
 
 class MainPageAndroid : BasePage(), MainPage {
-    var log: Logger = Logger.getLogger(MainPageAndroid::class.java.getName())
+    private val log: Logger = Logger.getLogger(MainPageAndroid::class.java.getName())
 
-    protected var signUpSection: SelenideElement = `$`(By.id("tile_container"))
+    private val homePageHeader: SelenideElement = `$`(By.id("toolbar_logo"))
 
-    protected var searchField: SelenideElement = `$`(By.id("searchEditText"))
+    private val searchButton: SelenideElement = `$`(By.xpath("//*[@text='Search']"))
 
-    protected var searchButton: SelenideElement = `$`(By.xpath("//*[@text='Search']"))
+    private val shoppingBagButton: SelenideElement = `$`(By.xpath("//*[@text='Shopping bag']"))
 
-    protected var homeButton: SelenideElement = `$`(By.xpath("//*[@text='Home']"))
+    private val homeButton: SelenideElement = `$`(By.xpath("//*[@text='Home']"))
 
-    protected var moreButton: SelenideElement = `$`(By.xpath("//*[@text='More']"))
+    private val moreButton: SelenideElement = `$`(By.xpath("//*[@text='More']"))
 
-    protected var signInButton: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='Sign in']"))
+    private val signInButton: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='Sign in']"))
 
-    protected var myAccountButton: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='My account']"))
+    private val myAccountButton: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='My account']"))
+
+    @Step("Home page is opened")
+    override fun isOpen(): Boolean {
+        log.info("Home page is opened")
+        return homePageHeader.shouldBe(visible).exists()
+    }
+
+    @Step("Open Search Page")
+    override fun openSearchPage() {
+        log.info("Open Search page")
+        searchButton.click()
+    }
+
+    @Step("Open Bag page")
+    override fun openBagPage() {
+        log.info("Open Bag page")
+        shoppingBagButton.click()
+    }
+
+    @Step("Type on {0} text in search field")
+    override fun searchText(searchText: String): MainPage {
+        log.info(format("Type on {0} text in search field", searchText))
+        openSearchPage()
+        SearchPageAndroid().openClothingDropdown().searchByText(searchText)
+        return this
+    }
 
     @Step("Click on 'More' button")
     override fun clickOnMoreBtn(): MainPage {

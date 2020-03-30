@@ -1,18 +1,20 @@
-package tests
+package tests.Login
 
 import io.qameta.allure.Description
 import io.qameta.allure.Feature
 import org.assertj.core.api.Assertions
 import org.testng.annotations.Test
+import tests.BaseTest
 
 class SignUpTest : BaseTest() {
-    var validEmail: String = "sw.karapugina@gmail.com"
-    var invalidEmail = "test@email.com"
-    var password = "qwerty123"
+    //Test data
+    private val validEmail: String = "sw.karapugina@gmail.com"
+    private val invalidEmail = "test@email.com"
+    private val password = "qwerty123"
 
     @Test
     @Description("Test Description: Sing in test - pass")
-    @Feature("SignUpTest")
+    @Feature("Sign Up")
     fun testSignInPass() {
         pages.mainPage.logOut()
                 .clickOnMoreBtn()
@@ -33,7 +35,7 @@ class SignUpTest : BaseTest() {
 
     @Test
     @Description("Test Description: Sing in test - fail")
-    @Feature("SignUpTest")
+    @Feature("Sign Up")
     fun testSignInFail() {
         pages.mainPage.logOut()
                 .clickOnMoreBtn()

@@ -13,27 +13,23 @@ import java.lang.String.format
 import java.util.logging.Logger
 
 class MyAccountPageAndroid : BasePage(), MyAccountPage {
-    protected var log: Logger = Logger.getLogger(MyAccountPageAndroid::class.java.toString())
+    private val log: Logger = Logger.getLogger(MyAccountPageAndroid::class.java.name)
 
-    protected var pageTitle: SelenideElement = `$`(By.id("toolbar_title"))
+    private val pageTitle: SelenideElement = `$`(By.id("toolbar_title"))
 
-    protected var emailField: SelenideElement = `$`(By.id("login_email_edittext"))
+    private val emailField: SelenideElement = `$`(By.id("login_email_edittext"))
 
-    protected var passwordField: SelenideElement = `$`(By.id("password_edittext"))
+    private val passwordField: SelenideElement = `$`(By.id("password_edittext"))
 
-    protected var signInButton: SelenideElement = `$`(By.id("login_button"))
+    private val signInButton: SelenideElement = `$`(By.id("login_button"))
 
-    protected var registerButton: SelenideElement = `$`(By.id("register_button"))
+    private val greetingText: SelenideElement = `$`(By.xpath(".//*[contains(@text, 'Hello')]"))
 
-    protected var greetingText: SelenideElement = `$`(By.xpath(".//*[contains(@text, 'Hello')]"))
+    private val txtErrorMsg: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='Incorrect e-mail or password']"))
 
-    protected var txtErrorMsg: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='Incorrect e-mail or password']"))
+    private val logOutButton: SelenideElement = `$`(By.id("myaccount_logout_button"))
 
-    protected var logOutButton: SelenideElement = `$`(By.id("myaccount_logout_button"))
-
-    protected var noButton: SelenideElement = `$`(By.id("dialog_layout_button_negative"))
-
-    protected var yesButton: SelenideElement = `$`(By.id("dialog_layout_button_positive"))
+    private val yesButton: SelenideElement = `$`(By.id("dialog_layout_button_positive"))
 
     @Step("Getting heading text")
     override fun isMyAccountPageOpen(): Boolean {

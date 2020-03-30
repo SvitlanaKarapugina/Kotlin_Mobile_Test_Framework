@@ -9,10 +9,17 @@ import org.openqa.selenium.By
 
 class WaitingUtils {
     var progressBar: SelenideElement? = Selenide.`$`(By.id("progress"))
+    var splashBackground: SelenideElement? = Selenide.`$`(By.id("splash_background"))
+
 
     fun waitingUntilLoadingIsGone() {
         if (IS_ANDROID)
             progressBar!!.waitUntil(hidden, Constants.ONE_MINUTE.toLong())
+    }
+
+    fun waitingUntilSplashScreenDisappear() {
+        if (IS_ANDROID)
+            splashBackground!!.waitUntil(hidden, Constants.ONE_MINUTE.toLong())
     }
 
 }

@@ -11,15 +11,47 @@ import pages.MainPage
 import java.util.logging.Logger
 
 class MainPageIOS : BasePage(), MainPage {
-    var log: Logger = Logger.getLogger(MainPageIOS::class.java.getName())
+    private val log: Logger = Logger.getLogger(MainPageIOS::class.java.name)
 
-    protected var homeButton: SelenideElement = `$`(By.id("Home"))
+    private val homePageHeader: SelenideElement = `$`(By.xpath("//XCUIElementTypeNavigationBar[@name='HomeVC']"))
 
-    protected var moreButton: SelenideElement = `$`(By.id("More"))
+    private val searchButton: SelenideElement = `$`(By.id("Search"))
 
-    protected var signInButton: SelenideElement = `$`(By.id("Login"))
+    private val shoppingBagButton: SelenideElement = `$`(By.id("Shopping bag"))
 
-    protected var myAccountButton: SelenideElement = `$`(By.id("My Account"))
+    private val homeButton: SelenideElement = `$`(By.id("Home"))
+
+    private val moreButton: SelenideElement = `$`(By.id("More"))
+
+    private val signInButton: SelenideElement = `$`(By.id("Login"))
+
+    private val myAccountButton: SelenideElement = `$`(By.id("My Account"))
+
+    @Step("Home page is opened")
+    override fun isOpen(): Boolean {
+        log.info("Home page is opened")
+        return homePageHeader.shouldBe(visible).exists()
+    }
+
+    @Step("Type on {0} text in search field")
+    override fun searchText(searchText: String): MainPage {
+        log.info(java.lang.String.format("Type on {0} text in search field", searchText))
+        openSearchPage()
+        SearchPageIOS().openClothingDropdown().searchByText(searchText)
+        return this
+    }
+
+    @Step("Open Search page")
+    override fun openSearchPage() {
+        log.info("Open Search page")
+        searchButton.click()
+    }
+
+    @Step("Open Bag page")
+    override fun openBagPage() {
+        log.info("Open Bag page")
+        shoppingBagButton.click()
+    }
 
     @Step("Click on 'More' button")
     override fun clickOnMoreBtn(): MainPage {

@@ -6,7 +6,6 @@ import com.codeborne.selenide.SelenideElement
 import core.constants.Constants.Companion.IS_IOS
 import core.constants.Constants.Companion.WAIT_FIVE_SECOND
 import io.appium.java_client.MobileBy.iOSNsPredicateString
-import org.openqa.selenium.By
 import org.openqa.selenium.By.xpath
 
 
@@ -25,15 +24,15 @@ class ElementHelpers {
     }
 
     fun getAnyElementContainingText(text: String): SelenideElement {
-        if (IS_IOS) {
-            return Selenide.`$`(iOSNsPredicateString(java.lang.String.format("value == \"%s\" OR name == \"%s\" OR label == \"%s\"", text, text, text)))
+        return if (IS_IOS) {
+            Selenide.`$`(iOSNsPredicateString(java.lang.String.format("value == \"%s\" OR name == \"%s\" OR label == \"%s\" AND type == 'XCUIElementTypeStaticText'", text, text, text)))
         } else {
-            return Selenide.`$`(xpath(java.lang.String.format("//*[contains(@text,\"%s\")]", text)))
+            Selenide.`$`(xpath(java.lang.String.format("//*[contains(@text,\"%s\")]", text)))
         }
     }
 
     fun isTextPresent(text: String): Boolean {
-        return getAnyElementContainingText(text).scrollTo().exists()
+        return getAnyElementContainingText(text).exists()
     }
 
     fun tapOnText(text: String) {

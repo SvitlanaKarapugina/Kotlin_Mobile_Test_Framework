@@ -1,9 +1,7 @@
 package core.pageConfiguration
 
 import com.google.inject.Inject
-import pages.BasePage
-import pages.MainPage
-import pages.MyAccountPage
+import pages.*
 
 open class Pages {
 
@@ -12,6 +10,15 @@ open class Pages {
 
     @Inject
     lateinit var myAccountPage: MyAccountPage
+
+    @Inject
+    lateinit var plpPage: PlpPage
+
+    @Inject
+    lateinit var searchPage: SearchPage
+
+    @Inject
+    lateinit var bagPage: BagPage
 
     @Inject
     lateinit var basePage: BasePage

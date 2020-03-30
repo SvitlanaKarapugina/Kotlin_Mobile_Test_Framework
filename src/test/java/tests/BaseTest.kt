@@ -5,11 +5,13 @@ import com.codeborne.selenide.Selenide.open
 import com.google.inject.Guice
 import com.google.inject.Injector
 import core.constants.Constants
+import core.constants.Constants.Companion.IS_ANDROID
 import core.driver.AppiumDriverController
 import core.pageConfiguration.AndroidInit
 import core.pageConfiguration.Pages
 import core.pageConfiguration.iOSInit
 import core.reports.TestListener
+import core.utils.WaitingUtils
 import org.testng.annotations.AfterSuite
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.BeforeSuite
@@ -27,6 +29,8 @@ open class BaseTest : Pages() {
         Configuration.browserSize = null
         Configuration.browser = AppiumDriverController::class.java.name
         open()
+        if (IS_ANDROID)
+            WaitingUtils().waitingUntilSplashScreenDisappear()
     }
 
     @BeforeMethod

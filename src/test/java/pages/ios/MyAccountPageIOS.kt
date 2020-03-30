@@ -1,6 +1,5 @@
 package pages.ios
 
-import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Selenide.`$`
 import com.codeborne.selenide.SelenideElement
@@ -13,23 +12,23 @@ import pages.MyAccountPage
 import java.util.logging.Logger
 
 class MyAccountPageIOS : BasePage(), MyAccountPage {
-    protected var log: Logger = Logger.getLogger(MyAccountPageIOS::class.java.toString())
+    private val log: Logger = Logger.getLogger(MyAccountPageIOS::class.java.name)
 
-    protected var pageTitle: SelenideElement = `$`(By.xpath("//XCUIElementTypeNavigationBar[@name='My account']"))
+    private var pageTitle: SelenideElement = `$`(By.xpath("//XCUIElementTypeNavigationBar[@name='My account']"))
 
-    protected var emailField: SelenideElement = `$`(By.xpath("//XCUIElementTypeTextField[@value='E-mail']"))
+    private val emailField: SelenideElement = `$`(By.xpath("//XCUIElementTypeTextField[@value='E-mail']"))
 
-    protected var passwordField: SelenideElement = `$`(By.xpath("//XCUIElementTypeSecureTextField[@value='Password']"))
+    private val passwordField: SelenideElement = `$`(By.xpath("//XCUIElementTypeSecureTextField[@value='Password']"))
 
-    protected var signInButton: SelenideElement = `$`(By.id("Sign in"))
+    private val signInButton: SelenideElement = `$`(By.id("Sign in"))
 
-    protected var greetingText: SelenideElement = `$`(By.xpath("//XCUIElementTypeStaticText[contains(@value,'Hello')]"))
+    private val greetingText: SelenideElement = `$`(By.xpath("//XCUIElementTypeStaticText[contains(@value,'Hello')]"))
 
-    protected var txtErrorMsg: SelenideElement = `$`(By.id("Incorrect e-mail or password"))
+    private val txtErrorMsg: SelenideElement = `$`(By.id("Incorrect e-mail or password"))
 
-    protected var logOutButton: SelenideElement = `$`(By.id("LOGOUT"))
+    private val logOutButton: SelenideElement = `$`(By.id("LOGOUT"))
 
-    protected var yesButton: SelenideElement = `$`(By.id("YES"))
+    private val yesButton: SelenideElement = `$`(By.id("YES"))
 
     @Step("Getting heading text")
     override fun isMyAccountPageOpen(): Boolean {
