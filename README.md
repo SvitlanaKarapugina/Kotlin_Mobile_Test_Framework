@@ -10,6 +10,7 @@ I used:
 7. Appium - driver for mobile testing
 
 # How to execute tests:
+Run in terminal(mac os)
 1. appium start: appium --allow-insecure=get_server_logs - we need it for log generation
 2. execute all tests: mvn clean test  
 3. generate allure report: mvn allure:serve
