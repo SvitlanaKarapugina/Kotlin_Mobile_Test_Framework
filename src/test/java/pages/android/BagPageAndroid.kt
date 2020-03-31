@@ -13,8 +13,11 @@ class BagPageAndroid : BagPage {
     private val log: Logger = Logger.getLogger(BagPageIOS::class.java.name)
 
     private val bagPageHeader: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='Bag']"))
+
     private val emptyBagHeader: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='YOUR SHOPPING BAG IS EMPTY']"))
+
     private val emptyBagDesc: SelenideElement = `$`(By.xpath("//android.widget.TextView[@text='Be inspired and discover something new to renew your closet.']"))
+
     private val continueShoppingButton: SelenideElement = `$`(By.id("empty_button"))
 
     @Step("Bag page is opened")

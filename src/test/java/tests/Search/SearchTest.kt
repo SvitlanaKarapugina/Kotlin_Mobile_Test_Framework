@@ -8,9 +8,7 @@ import tests.BaseTest
 
 class SearchTest : BaseTest() {
     //Test data
-    private val polo: String = "Polo"
     private val jeans: String = "Jeans"
-    private val dress: String = "Dress"
 
     @Test
     @Description("Search")

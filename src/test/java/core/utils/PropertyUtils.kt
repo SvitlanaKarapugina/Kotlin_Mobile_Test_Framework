@@ -12,7 +12,7 @@ class PropertyUtils {
         return getProperty(filePath, name)
     }
 
-    fun getProperty(filePath: String, propertyName: String): String? {
+    private fun getProperty(filePath: String, propertyName: String): String? {
         val prop = Properties()
         var input: InputStream? = null
         var value: String? = null
@@ -21,13 +21,13 @@ class PropertyUtils {
             prop.load(input)
             value = prop.getProperty(propertyName)
         } catch (ex: Exception) {
-            System.out.println(ex.message)
+            println(ex.message)
         } finally {
             if (input != null) {
                 try {
                     input.close()
                 } catch (e: IOException) {
-                    System.out.println(e.message)
+                    println(e.message)
                 }
 
             }

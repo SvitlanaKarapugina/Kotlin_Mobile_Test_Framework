@@ -24,9 +24,9 @@ import java.net.MalformedURLException
 import java.net.URL
 
 
-class AppiumDriverController : WebDriverProvider {
+class DriverManager : WebDriverProvider {
     companion object {
-        var instance = AppiumDriverController()
+        var instance = DriverManager()
         var driver: AppiumDriver<MobileElement>? = null
     }
 

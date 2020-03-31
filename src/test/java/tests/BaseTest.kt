@@ -6,7 +6,7 @@ import com.google.inject.Guice
 import com.google.inject.Injector
 import core.constants.Constants
 import core.constants.Constants.Companion.IS_ANDROID
-import core.driver.AppiumDriverController
+import core.driver.DriverManager
 import core.pageConfiguration.AndroidInit
 import core.pageConfiguration.Pages
 import core.pageConfiguration.iOSInit
@@ -27,7 +27,7 @@ open class BaseTest : Pages() {
     fun setup() {
         Configuration.startMaximized = false
         Configuration.browserSize = null
-        Configuration.browser = AppiumDriverController::class.java.name
+        Configuration.browser = DriverManager::class.java.name
         open()
         if (IS_ANDROID)
             WaitingUtils().waitingUntilSplashScreenDisappear()
@@ -36,13 +36,13 @@ open class BaseTest : Pages() {
     @BeforeMethod
     fun configureEnvironment() {
         injectPages()
-        AppiumDriverController.instance.restartApp()
+        DriverManager.instance.restartApp()
     }
 
     @AfterSuite
     fun stopAll() {
-        AppiumDriverController.instance.writeLog()
-        AppiumDriverController.instance.quit()
+        DriverManager.instance.writeLog()
+        DriverManager.instance.quit()
     }
 
     private fun injectPages() {
